@@ -1,4 +1,3 @@
-
 function chkDuplicationID() {
     const id = document.getElementById('id');
     const url = "/api/user?id=" + id.value;
