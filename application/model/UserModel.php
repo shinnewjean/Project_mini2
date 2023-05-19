@@ -2,6 +2,7 @@
 namespace application\model;
 
 class UserModel extends Model{
+	// $pwFlg = true : 두번째 파라미터가 있으면 받아서 씀
 	// 230516_add 동적 쿼리로 바꿈 -> $pwFlg = true추가
 	public function getUser( $arrUserInfo, $pwFlg = true ) {
 		// $sql =" select * from user_info where u_id = :id and u_pw = :pw ";
@@ -36,7 +37,20 @@ class UserModel extends Model{
 	
 	// Insert User
 	public function insertUser($arrUserInfo){
-		$sql = " INSERT INTO user_info(u_id,u_pw,u_name) VALUES(:u_id,:u_pw,:u_name) ";
+		// $sql = " INSERT INTO user_info(u_id,u_pw,u_name) VALUES(:u_id,:u_pw,:u_name) ";
+		$sql =
+		" INSERT INTO "
+		."  user_info( "
+		."      u_id "
+		."      ,u_pw "
+		."      ,u_name "
+		." ) "
+		." VALUES( "
+		."      :u_id "
+		."      ,:u_pw "
+		."      ,:u_name "
+		." ) "
+		;
 
 		$prepare = [
 			":u_id" => $arrUserInfo["id"]
@@ -54,5 +68,68 @@ class UserModel extends Model{
 			return false;
 		}
 	}
+
+    // ----------------------------------------
+    // Update User
+    public function UpdateUser($arrUserInfo) {
+        $sql =
+            " UPDATE "
+            ."      user_info "
+            ." SET ";
+
+        $arr_prepare = [
+            ":u_no" => $arrUserInfo["u_no"]
+        ];
+
+        // 업데이트할 필드와 값을 동적으로 생성
+        foreach($arrUserInfo as $key => $value) {
+            if($key === "pw" && $value !== "") {
+                $sql .= " u_pw = :u_$key, ";
+                $arr_prepare[":u_$key"] = base64_encode($value);
+            } else if ($key !== "u_no" && $value !== "") {
+                $sql .= " ,u_$key = :u_$key ";
+                $arr_prepare[":u_$key"] = $value;
+            }
+        }
+
+        // 맨 처음 쉼표 제거
+        // $sql = ltrim($sql, ",");
+        $sql = preg_replace("/,/", "", $sql, 1);
+
+        $sql .= " WHERE u_no = :u_no ";
+
+        try {
+            $stmt = $this->conn->prepare($sql);
+            $result = $stmt->execute($arr_prepare);
+            return $result;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    // ----------------------------------------
+
+    // delete User
+    public function delUser($arrUserInfo) {
+        $sql =
+            " Update "
+            ."      user_info "
+            ." SET "
+            ."      u_del_flg = 1 "
+            ."      ,u_to_date = NOW() "
+            ." WHERE "
+            ."      u_no = :u_no "
+            ;
+        $arr_prepare = [
+                ":u_no"           => $arrUserInfo["u_no"]
+            ];
+
+        try {
+            $stmt = $this->conn->prepare( $sql );
+            $result = $stmt->execute( $arr_prepare );
+            return $result;
+        } catch ( Exception $e ) {
+            return false;
+        }
+    }
 
 }

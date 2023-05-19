@@ -5,7 +5,7 @@
         <a class="nav-link" href="
         <? echo isset($_SESSION[_STR_LOGIN_ID]) ? '/user/mypage' : '/user/login' ?>
         ">
-            <? echo isset($_SESSION[_STR_LOGIN_ID]) ? $_SESSION[_STR_LOGIN_ID]."회원님의" : "(방문자)님의" ?> <!-- view에서 $_SESSION 사용시 보안에 취약함 -->
+        <? echo isset($_SESSION[_STR_LOGIN_ID]) ? $_SESSION[_STR_LOGIN_ID]."회원님의" : "(방문자)님의" ?> <!-- view에서 $_SESSION 사용시 보안에 취약함 -->
         </a>
         <a class="navbar-brand" href="/user/main"><img src="/application/view/img/maintitle.png" style="width:100px; height:auto;" /></a>
 
@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- nav부분 -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/user/main">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Business</a></li>
                 <!-- Business introduction -->
                 <li class="nav-item dropdown">

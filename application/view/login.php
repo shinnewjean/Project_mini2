@@ -19,6 +19,7 @@
 			<input type="password" name="pw" id="pw" placeholder="password"/>
 			<button>login</button>
 			<p class="message">계정이 없으신가요? <a href="/user/regist">회원가입</a></p>
+			<p class="message">로그인이 안될때는? <a href="">ID 찾기</a> <a href="">PW 변경</a></p>
 		</form>
 	</div>
 </div>

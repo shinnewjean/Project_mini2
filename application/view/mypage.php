@@ -1,3 +1,8 @@
+<?
+include_once( URL_DB );
+$result_user_info_all = user_info_all();
+?>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,36 +24,22 @@
 
 <!-- 전체 사이즈 조절 -->
 <div class="mainCon">
-    <h1>my page</h1>
+    <h1><? echo isset($_SESSION[_STR_LOGIN_ID]) ? $_SESSION[_STR_LOGIN_ID]."회원님의" : "(방문자)님의" ?>my page</h1>
+    <div class="profile_con">
+        <p>ID : <? echo isset($_SESSION[_STR_LOGIN_ID]) ? $_SESSION[_STR_LOGIN_ID]: "(방문자)" ?> </p>
+        <p>이름 : <? echo isset($_SESSION[_STR_LOGIN_NAME]) ? $_SESSION[_STR_LOGIN_NAME] : "(방문자)" ?> </p>
+        <p>닉네임 : <? echo isset($_SESSION[_STR_LOGIN_NICKNAME]) ? $_SESSION[_STR_LOGIN_NICKNAME] : "(방문자)" ?> </p>
+    </div>
 
-<div class="container">
-    <div class="row g-4">
-    <?php
-        foreach ( $result_product_info_all as $val ) {        // $result_product_info_all = product_info_all() 의 배열값을 $val로 가져와서 배열값만큼 돌림
-    ?>
-        <div class="col">
-            <div class="card h-100" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <?
-                            if ($val['Pdt_name'] === '0' ) {
-                                echo 'null';
-                            } else {
-                                echo $val['Pdt_name'];
-                            }
-                        ?>
-                    </h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-    <? } ?>
-</div>
+    <!-- <div class="btns"> -->
+        <a href="/user/modify">정보수정</a>
+        <div class="deleteAccount">탈퇴하기</div>
+    <!-- </div> -->
+
 </div> <!-- mainCon End -->
 
 <!-- Bootstrap JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src = "/application/view/js/mypage.js"></script>
 </body>
 </html>

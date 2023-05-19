@@ -22,6 +22,10 @@ define("_BASE_FILENAME_MODEL", "Model");
 define("_BASE_REDIRECT", "Location: ");
 
 define("_STR_LOGIN_ID", "u_id");
+define("_STR_LOGIN_PW", "u_pw");
+define("_STR_LOGIN_NAME", "u_name");
+define("_STR_LOGIN_NICKNAME", "u_nickname");
+define("_STR_LOGIN_DELST", "Pdt_delst");
 
 
 // HEADER 위치잡기

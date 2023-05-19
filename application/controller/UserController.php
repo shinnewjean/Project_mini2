@@ -17,6 +17,10 @@ class UserController extends Controller{
         return "mypage"._EXTENSION_PHP;
     }
 
+    public function modifyGet() {
+        return "modify"._EXTENSION_PHP;
+    }
+
     // + POST 방식으로 로그인 정보를 전달할 때 실행되는 메서드
     public function loginPost() {
         $result = $this->model->getUser($_POST); // 230516_add DB에서 유저 정보 습득
